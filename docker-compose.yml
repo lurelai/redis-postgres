@@ -1,0 +1,13 @@
+services:
+  api:
+    image: "node:21.6.2"
+    container_name: "api"
+    command: /bin/bash -c "yarn install && yarn run start"
+    working_dir: "/usr/app"
+    volumes: 
+      - "$PWD:/usr/app"
+    ports:
+      - "8080:8000"
+
+
+
