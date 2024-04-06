@@ -10,7 +10,24 @@ services:
       - "8080:8000"
     networks:
       - redis-postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
 
+  postgres:
+    image: "postgres:16.2"
+    container_name: "postgres"
+    environment:
+      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
+      - "POSTGRES_DB=${POSTGRES_DATABASE}"
+      - "POSTGRES_USER=${POSTGRES_USER}"
+    networks:
+    - redis-postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -p ${POSTGRES_PORT} -d ${POSTGRES_DATABASE}"]
+      interval: "5s"
+      timeout: "2s"
+      retries: 6
 
 networks:
   redis-postgres:
