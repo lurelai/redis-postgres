@@ -1,4 +1,6 @@
 const Pool = require('pg-pool')
+const { readFileSync } = require('node:fs')
+const { join } = require('path')
 
 // Config dotenv
 require('dotenv').config()
@@ -12,15 +14,23 @@ const pool = new Pool({
 	host: process.env.POSTGRES_HOST,
 })
 
+// Create table if not exists
+pool.query(readFileSync(join(__dirname, 'create-table.sql'), 'ASCII'))
+
 const postgresConnection = async ()=>{
 	try{
+		const start = Date.now()
 		await pool.connect()
+		const end = Date.now()
 
-		console.log('okay')
+		return { connectionTime: end - start }
 	}catch(err){
-		console.log(err)
-		
+		return { err }
 	}
+}
+
+const query = async (q, params)=>{
+	return await pool.query(q, param)
 }
 
 module.exports = { postgresConnection }
