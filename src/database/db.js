@@ -8,3 +8,5 @@ const postgresConnection = ()=>{
 
 }
 
+module.exports = { postgresConnection }
+

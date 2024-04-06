@@ -1,6 +1,6 @@
 services:
   api:
-    image: "node:21.6.2"
+    image: "node:20.12"
     container_name: "api"
     command: /bin/bash -c "yarn install && yarn run start"
     working_dir: "/usr/app"
@@ -8,6 +8,12 @@ services:
       - "$PWD:/usr/app"
     ports:
       - "8080:8000"
+    networks:
+      - redis-postgres
 
 
+networks:
+  redis-postgres:
+    driver: bridge
+    name: redis-postgres
 
