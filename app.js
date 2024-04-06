@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express')
 const app = express()
 
@@ -10,8 +12,21 @@ postgresConnection().then(msg=>{
 	console.log("Postgresql connection time: " + msg.connectionTime+"ms")
 })
 
+
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())
+
+// Routes
+require('./src/routes/authRoute')(app)
+
 app.get('/', (req, res)=>{
-	return res.send('Ola Mundo')
+	return res.send(`
+		<h1>REGISTER SINGLE USER</h1>
+		<form action="/auth/register" method="post">
+			<input type="text" name="name" placeholder="User name">
+			<input type="password" name="password" placeholder="User password">
+			<input type="submit">
+		</form>`)
 })
 
 app.listen(8000)
