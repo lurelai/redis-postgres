@@ -27,7 +27,15 @@ app.get('/', (req, res)=>{
 			<input type="text" name="nickname" placeholder="User nickname">
 			<input type="password" name="password" placeholder="User password">
 			<input type="submit">
-		</form>`)
+		</form>
+
+		<h1>LOGIN SINGLE USER</h1>
+		<form action="/auth/login" method="post">
+			<input type="text" name="nickname" placeholder="User nickname">
+			<input type="password" name="password" placeholder="User password">
+			<input type="submit">
+		</form>
+	`)
 })
 
 app.listen(8000)
