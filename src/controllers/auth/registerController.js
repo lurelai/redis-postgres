@@ -14,6 +14,7 @@ const register = async (req, res)=>{
 		if(result.err === "Nickname already exists")
 			return res.end("Nickname already exists")
 
+		console.log(result.err)
 		return res.send("WTF err")
 	}
 

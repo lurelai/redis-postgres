@@ -30,7 +30,10 @@ const postgresConnection = async ()=>{
 }
 
 const query = async (q, params)=>{
-	return await pool.query(q, params)
+	const start = Date.now()
+	const result = await pool.query(q, params)
+	const end = Date.now()
+	return { result, queryTime: `${end - start}ms` }
 }
 
 module.exports = { postgresConnection, query }
