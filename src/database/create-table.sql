@@ -1,5 +1,7 @@
 CREATE TABLE IF NOT EXISTS users(
-	name varchar(100) NOT NULL,
+	nickname varchar(50) NOT NULL UNIQUE,
+	name varchar(200) NOT NULL,
+	password varchar(100) NOT NULL,
 	user_id SERIAL PRIMARY KEY
 );
 

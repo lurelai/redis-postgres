@@ -24,6 +24,7 @@ app.get('/', (req, res)=>{
 		<h1>REGISTER SINGLE USER</h1>
 		<form action="/auth/register" method="post">
 			<input type="text" name="name" placeholder="User name">
+			<input type="text" name="nickname" placeholder="User nickname">
 			<input type="password" name="password" placeholder="User password">
 			<input type="submit">
 		</form>`)

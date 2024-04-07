@@ -30,8 +30,8 @@ const postgresConnection = async ()=>{
 }
 
 const query = async (q, params)=>{
-	return await pool.query(q, param)
+	return await pool.query(q, params)
 }
 
-module.exports = { postgresConnection }
+module.exports = { postgresConnection, query }
 
