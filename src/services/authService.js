@@ -18,7 +18,7 @@ const registerService = async (name, password, nickname)=>{
 const loginService = async (nickname, password)=>{
 	try{
 		const queryString = "SELECT nickname, password FROM users WHERE nickname=$1"
-		const { result } = await query(queryString, [nickname])
+		const { result, queryTime } = await query(queryString, [nickname])
 
 		if(result.rows.length === 0)
 			return { err: "invalid nickname" }
@@ -29,6 +29,7 @@ const loginService = async (nickname, password)=>{
 		if(result.rows[0].password !== password)
 			return { err: "invalid password" }
 
+		console.log(`QUERY TIME: NICKNAME: ${nickname}\\ QTIME: ${queryTime}`)
 		return { ok: 'okay' }
 	}catch(err){
 		console.log(err)
