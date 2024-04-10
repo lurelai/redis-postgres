@@ -13,6 +13,13 @@ postgresConnection().then(msg=>{
 })
 
 
+// set redis connection
+const { createConnection } = require('./src/database/redis')
+createConnection().then(a=>{
+	console.log(a)
+})
+
+
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
