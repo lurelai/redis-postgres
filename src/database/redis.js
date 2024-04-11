@@ -19,13 +19,17 @@ const functions = {
 		return await redis.set(key, value)
 	},
 
-	get: async (key, value)=>{
-		return await redis.get(key)
+	hget: async (key, field)=>{
+		return await redis.hget(key, field)
+	},
+
+	sessionHset: async (key, fieldsValues)=>{
+		return await redis.hset(key, fieldsValues[0][0], fieldsValues[0][1])
 	}
 }
 
-const { set, get } = functions
+const { set, hget, sessionHset } = functions
 
-module.exports = { set, get, redis }
+module.exports = { set, hget, sessionHset, redis }
 
 

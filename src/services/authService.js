@@ -32,7 +32,8 @@ const loginService = async (nickname, password)=>{
 
 		console.log(`QUERY TIME: NICKNAME: ${nickname}\\ QTIME: ${queryTime}`)
 
-		getLoginSession(result.rows[0].user_id)
+		const { session, where } = await getLoginSession(result.rows[0].user_id)
+		console.log(where, session, 'session')
 
 		return { ok: 'okay' }
 	}catch(err){
