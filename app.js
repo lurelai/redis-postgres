@@ -3,7 +3,12 @@
 const express = require('express')
 const app = express()
 
-// set database connection
+
+// set redis connection
+require('./src/database/redis')
+
+
+// set postgres connection
 const { postgresConnection } = require('./src/database/db')
 postgresConnection().then(msg=>{
 	if(msg.err)
@@ -13,15 +18,10 @@ postgresConnection().then(msg=>{
 })
 
 
-// set redis connection
-const { createConnection } = require('./src/database/redis')
-createConnection().then(a=>{
-	console.log(a)
-})
-
-
+// App defaults
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
+
 
 // Routes
 require('./src/routes/authRoute')(app)

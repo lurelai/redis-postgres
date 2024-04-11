@@ -1,26 +1,31 @@
-const { createClient } = require('redis')
+const Redis = require('ioredis')
 
-// set dotenv
+// dotenv
 require('dotenv').config()
 
 const { REDIS_USER, REDIS_PASSWORD, REDIS_URL, REDIS_PORT } = process.env
 
-const client = createClient({
-	url: `redis://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_URL}:${REDIS_PORT}`
-}).on('error', err => console.log("REDIS ERR: " + err))
+console.time("Redis connection time")
+const redis = new Redis({
+	username: REDIS_USER,
+	password: REDIS_PASSWORD,
+	host: REDIS_URL,
+	port: REDIS_PORT
+})
+console.timeEnd("Redis connection time")
 
-const createConnection = async ()=>{
-	try{
-		const start = Date.now()
-		await client.connect()
-		const end = Date.now() - start
+const functions = {
+	set: async (key, value)=>{
+		return await redis.set(key, value)
+	},
 
-		return { connectionTime: end }
-	}catch(err){
-		console.log(err)
-		return { err }
+	get: async (key, value)=>{
+		return await redis.get(key)
 	}
 }
 
-module.exports = { createConnection }
+const { set, get } = functions
+
+module.exports = { set, get, redis }
+
 
