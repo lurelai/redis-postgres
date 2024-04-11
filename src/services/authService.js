@@ -1,4 +1,5 @@
-const { query } = require('../database/db.js')
+const { query } = require('../database/db')
+const { getLoginSession } = require('./loginSession')
 
 const registerService = async (name, password, nickname)=>{
 	try{
@@ -17,7 +18,7 @@ const registerService = async (name, password, nickname)=>{
 
 const loginService = async (nickname, password)=>{
 	try{
-		const queryString = "SELECT nickname, password FROM users WHERE nickname=$1"
+		const queryString = "SELECT nickname, password, user_id FROM users WHERE nickname=$1"
 		const { result, queryTime } = await query(queryString, [nickname])
 
 		if(result.rows.length === 0)
@@ -30,6 +31,9 @@ const loginService = async (nickname, password)=>{
 			return { err: "invalid password" }
 
 		console.log(`QUERY TIME: NICKNAME: ${nickname}\\ QTIME: ${queryTime}`)
+
+		getLoginSession(result.rows[0].user_id)
+
 		return { ok: 'okay' }
 	}catch(err){
 		console.log(err)
