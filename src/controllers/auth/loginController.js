@@ -8,12 +8,15 @@ const loginController = async (req, res)=>{
 	if(!nickname || !password)
 		return res.send('Something is invalid')
 
-	const { err, ok } = await loginService(nickname, password)
+	const { err, ok, session } = await loginService(nickname, password)
 
 	if(err)
 		return res.send(err)
 
-	return res.send('okay')
+	// setting a cookie
+	res.cookie("session", session, { httpOnly: true, secure: true, signed: true })
+
+	return res.redirect("/user/logged")
 }
 
 module.exports = loginController

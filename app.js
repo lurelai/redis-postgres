@@ -1,7 +1,12 @@
 'use strict';
 
 const express = require('express')
+const cookieParser = require('cookie-parser')
+
 const app = express()
+
+// set dotenv
+require('dotenv').config()
 
 
 // set redis connection
@@ -21,12 +26,13 @@ postgresConnection().then(msg=>{
 // App defaults
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
+app.use(cookieParser(process.env.COOKIE_PARSER_SECRET))
 
 
 // Routes
 require('./src/routes/authRoute')(app)
 
-app.get('/', (req, res)=>{
+app.get('/', async (req, res)=>{
 	return res.send(`
 		<h1>REGISTER SINGLE USER</h1>
 		<form action="/auth/register" method="post">

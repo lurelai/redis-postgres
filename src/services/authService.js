@@ -35,7 +35,7 @@ const loginService = async (nickname, password)=>{
 		const { session, where } = await getLoginSession(result.rows[0].user_id)
 		console.log(where, session, 'session')
 
-		return { ok: 'okay' }
+		return { ok: 'okay', session }
 	}catch(err){
 		console.log(err)
 		
