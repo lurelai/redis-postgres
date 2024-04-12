@@ -18,7 +18,7 @@ const register = async (req, res)=>{
 		return res.send("WTF err")
 	}
 
-	return res.send("User created")
+	return res.send("User created, please, go to <a href='/'>home</a> and loggin")
 }
 
 module.exports = register

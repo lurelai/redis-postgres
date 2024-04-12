@@ -31,6 +31,7 @@ app.use(cookieParser(process.env.COOKIE_PARSER_SECRET))
 
 // Routes
 require('./src/routes/authRoute')(app)
+require('./src/routes/userRoute')(app)
 
 app.get('/', async (req, res)=>{
 	return res.send(`

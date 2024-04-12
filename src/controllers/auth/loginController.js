@@ -16,7 +16,7 @@ const loginController = async (req, res)=>{
 	// setting a cookie
 	res.cookie("session", session, { httpOnly: true, secure: true, signed: true })
 
-	return res.redirect("/user/logged")
+	return res.redirect("/user/")
 }
 
 module.exports = loginController
