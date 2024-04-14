@@ -5,7 +5,8 @@
   "author": "Lucas Ariel <github.lucas.ariel27@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "createUsers": "node ./tests/createUsers.js"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",
